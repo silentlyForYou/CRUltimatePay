@@ -1,0 +1,12 @@
+PODS:
+  - GreedUPPayPlugin (3.3.3)
+
+DEPENDENCIES:
+  - GreedUPPayPlugin
+
+SPEC CHECKSUMS:
+  GreedUPPayPlugin: a66ed819f10d7666bb37e227e1ad736617f258b4
+
+PODFILE CHECKSUM: 0fa2258914e0bc033136a63ea8ac66cbfcabf7b1
+
+COCOAPODS: 1.0.1
