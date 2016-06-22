@@ -96,7 +96,11 @@ func application(application: UIApplication, openURL url: NSURL, sourceApplicati
 #### 10.使用银联支付
 ##### 10.1 设置银联支付参数
 ```
-CRUltimatePay.sharedInstance().setUnipay(url: testUrl, viewController: self, delegate: self) { result, sign in
+CRUltimatePay.sharedInstance().setUnipay(url: testUrl, viewController: self, delegate: self)
+```
+##### 10.2 发起银联支付请求
+```
+CRUltimatePay.sharedInstance().startUnipay() { result, sign in
     var text = ""
     
     switch result {
@@ -110,10 +114,6 @@ CRUltimatePay.sharedInstance().setUnipay(url: testUrl, viewController: self, del
     
     UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
 }
-```
-##### 10.2 发起银联支付请求
-```
-CRUltimatePay.sharedInstance().startUnipay()
 ```
 
 #### 11.使用支付宝支付
@@ -136,7 +136,11 @@ order.showURL = "m.alipay.com"
 ```
 ##### 11.2 设置支付宝支付参数
 ```
-CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, privateKey: privateKey, delegate: self) { result, resultDict in
+CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, privateKey: privateKey, delegate: self) 
+```
+##### 11.3 发起支付宝支付请求
+```
+CRUltimatePay.sharedInstance().startAlipay(order: order) { result, resultDict in
     var text = ""
             
     switch result {
@@ -149,10 +153,6 @@ CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, priva
             
     UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
 }
-```
-##### 11.3 发起支付宝支付请求
-```
-CRUltimatePay.sharedInstance().startAlipay(order: order)
 ```
 
 #### 12.委托回调函数

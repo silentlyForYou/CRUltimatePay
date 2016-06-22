@@ -200,6 +200,11 @@ class CRUltimatePay: NSObject {
         static var predicate: dispatch_once_t = 0
     }
     
+    /**
+     支付类示例
+     
+     - returns: 实例
+     */
     class func sharedInstance() -> CRUltimatePay! {
         if Static.instance == nil {
             dispatch_once(&Static.predicate) {
@@ -214,23 +219,45 @@ class CRUltimatePay: NSObject {
         super.init()
     }
     
-    // 初始化设置调试环境和scheme
+    /**
+     初始化设置运行环境和app scheme
+     
+     - parameter forProduction: 运行环境为发布或调试
+     - parameter scheme:        app scheme
+     
+     */
     func initialize(forProduction forProduction: Bool, scheme: String) {
         self.forProduction = forProduction
         self.scheme = scheme
     }
     
-    // 初始化设置调试环境、scheme以及验证方式
+    /**
+     初始化设置运行环境、app scheme以及验证方式
+     
+     - parameter forProduction: 运行环境为发布或调试
+     - parameter scheme:        app scheme
+     - parameter verify:        验证方式
+     
+     */
     func initialize(forProduction forProduction: Bool, scheme: String, verify: String -> Bool) {
         initialize(forProduction: forProduction, scheme: scheme)
         self.verifyBlock = verify
     }
     
-    // 设置支付密钥验证
+    /**
+     设置验证方式
+     
+     - parameter block: 验证方式
+     */
     func setVerify(block: String -> Bool) {
         self.verifyBlock = block
     }
     
+    /**
+     支付完成后的回调捕获
+     
+     - parameter url: 回调传入的URL
+     */
     func handlePaymentResult(url: NSURL) {
         guard let host = url.host else { return }
         
@@ -248,20 +275,30 @@ class CRUltimatePay: NSObject {
 // MARK: - 添加银联支持
 extension CRUltimatePay {
     
-    // 设置支付参数
-    func setUnipay(url url: String, viewController: UIViewController!, delegate: CRUltimatePayDelegate?, paymentResultBlock: UnipayResultType?) {
+    /**
+     设置银联支付参数
+     
+     - parameter url:                获取Tn号码的url，通常为app服务器订单接口
+     - parameter viewController:     调用该支付的view controller
+     - parameter delegate:           委托
+     - parameter paymentResultBlock: 支付完成后的回调代码
+     */
+    func setUnipay(url url: String, viewController: UIViewController!, delegate: CRUltimatePayDelegate?) {
         self.tnServerUrl = url
         self.viewController = viewController
         self.delegate = delegate
-        self.unipayResultBlock = paymentResultBlock
     }
     
-    // 向服务器端获取Tn订单号用于后续支付
-    func startUnipay() {
+    /**
+     向服务器请求Tn后，开始发起银联支付请求
+     */
+    func startUnipay(paymentResultBlock: UnipayResultType?) {
         guard let url = NSURL(string: tnServerUrl) else {
             delegate?.ultimatePayUnavailableUnipayUrl?(tnServerUrl)
             return
         }
+        
+        unipayResultBlock = paymentResultBlock
         
         delegate?.ultimatePayDidStartRequestUnipayTn?()
         
@@ -293,7 +330,11 @@ extension CRUltimatePay {
         }
     }
     
-    // 银联支付返回app回调处理
+    /**
+     银联支付返回app回调处理
+     
+     - parameter url: 银联支付回调传入的URL
+     */
     private func handleUnipayPaymentResult(url: NSURL) {
         UPPaymentControl.defaultControl().handlePaymentResult(url) { [unowned self] code, data in
             dispatch_async(dispatch_get_main_queue()) {
@@ -331,18 +372,31 @@ extension CRUltimatePay {
 // MARK: - 添加支付宝支持
 extension CRUltimatePay {
     
-    // 设置支付参数
-    func setAlipay(partner partner: String, seller: String, privateKey: String, delegate: CRUltimatePayDelegate?, paymentResultBlock: AlipayResultType?) {
+    /**
+     设置支付宝支付参数
+     
+     - parameter partner:            商户唯一标识号
+     - parameter seller:             卖家支付宝唯一用户号
+     - parameter privateKey:         私钥字符串
+     - parameter delegate:           委托
+     - parameter paymentResultBlock: 支付完成后的回调代码
+     */
+    func setAlipay(partner partner: String, seller: String, privateKey: String, delegate: CRUltimatePayDelegate?) {
         self.partner = partner
         self.seller = seller
         self.privateKey = privateKey
         
         self.delegate = delegate
-        self.alipayResultBlock = paymentResultBlock
     }
     
-    // 支付宝支付请求
-    func startAlipay(order order: CRUltimatePayAlipayOrder) {
+    /**
+     发起支付宝支付请求
+     
+     - parameter order: 支付订单数据
+     */
+    func startAlipay(order order: CRUltimatePayAlipayOrder, paymentResultBlock: AlipayResultType?) {
+        alipayResultBlock = paymentResultBlock
+        
         let signedString = CreateRSADataSigner(privateKey).signString(order.description)
         let orderString = "\(order.description)&sign=\"\(signedString)\"&sign_type=\"RSA\""
         
@@ -370,7 +424,11 @@ extension CRUltimatePay {
         delegate?.ultimatePayDidStartPay?()
     }
     
-    // 支付宝支付返回app回调处理
+    /**
+     支付宝支付返回app回调处理
+     
+     - parameter url: 支付宝支付回调传入的URL
+     */
     private func handleAlipayPaymentResult(url: NSURL) {
         AlipaySDK.defaultService().processOrderWithPaymentResult(url) { [unowned self] resultDic in
             dispatch_async(dispatch_get_main_queue()) {

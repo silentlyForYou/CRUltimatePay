@@ -23,7 +23,8 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
     @IBAction func startUnipay(sender: UIButton) {
         let testUrl = "http://101.231.204.84:8091/sim/getacptn"
         
-        CRUltimatePay.sharedInstance().setUnipay(url: testUrl, viewController: self, delegate: self) { result, sign in
+        CRUltimatePay.sharedInstance().setUnipay(url: testUrl, viewController: self, delegate: self)
+        CRUltimatePay.sharedInstance().startUnipay { result, sign in
             var text = ""
             
             switch result {
@@ -37,7 +38,6 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
             
             UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
         }
-        CRUltimatePay.sharedInstance().startUnipay()
     }
     
     private func generateTradeNo() -> String {
@@ -75,7 +75,8 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
         order.itBPay = "30m"
         order.showURL = "m.alipay.com"
         
-        CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, privateKey: privateKey, delegate: self) { result, resultDict in
+        CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, privateKey: privateKey, delegate: self)
+        CRUltimatePay.sharedInstance().startAlipay(order: order) { result, resultDict in
             var text = ""
             
             switch result {
@@ -88,10 +89,9 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
             
             UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
         }
-        CRUltimatePay.sharedInstance().startAlipay(order: order)
     }
     
-    // MARK: Unipay class delegate
+    // MARK: Ultimate class delegate
     
     func unipayDidStartRequestTn() {
         print("开始请求支付订单Tn号码")
