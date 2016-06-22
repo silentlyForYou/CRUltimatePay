@@ -73,48 +73,48 @@ struct CRUltimatePayAlipayOrder {
         var desStr = ""
         
         if let partner = self.partner {
-            desStr += "partner=\(partner)"
+            desStr += "partner=\"\(partner)\""
         }
         if let seller = self.sellerID {
-            desStr += "&seller_id=\(seller)"
+            desStr += "&seller_id=\"\(seller)\""
         }
         if let outTradeNo = self.outTradeNo {
-            desStr += "&out_trade_no=\(outTradeNo)"
+            desStr += "&out_trade_no=\"\(outTradeNo)\""
         }
         if let subject = self.subject {
-            desStr += "&subject=\(subject)"
+            desStr += "&subject=\"\(subject)\""
         }
         if let body = self.body {
-            desStr += "&body=\(body)"
+            desStr += "&body=\"\(body)\""
         }
         if let totalFee = self.totalFee {
-            desStr += "&total_fee=\(totalFee)"
+            desStr += "&total_fee=\"\(totalFee)\""
         }
         if let notifyURL = self.notifyURL {
-            desStr += "&notify_url=\(notifyURL)"
+            desStr += "&notify_url=\"\(notifyURL)\""
         }
         
-        desStr += "&service=\(service)"
+        desStr += "&service=\"\(service)\""
         
         if let paymentType = self.paymentType {
-            desStr += "&payment_type=\(paymentType)"
+            desStr += "&payment_type=\"\(paymentType)\""
         }
         if let inputCharset = self.inputCharset {
-            desStr += "&_input_charset=\(inputCharset)"
+            desStr += "&_input_charset=\"\(inputCharset)\""
         }
         if let itBPay = self.itBPay {
-            desStr += "&it_b_pay=\(itBPay)"
+            desStr += "&it_b_pay=\"\(itBPay)\""
         }
         if let showURL = self.showURL {
-            desStr += "&show_url=\(showURL)"
+            desStr += "&show_url=\"\(showURL)\""
         }
         if let appID = self.appID {
-            desStr += "&app_id=\(appID)"
+            desStr += "&app_id=\"\(appID)\""
         }
         
         if let context = self.outContext {
             context.keys.forEach { key in
-                desStr += "&\(key)=\(context[key])"
+                desStr += "&\(key)=\"\(context[key])\""
             }
         }
         
@@ -397,7 +397,7 @@ extension CRUltimatePay {
      */
     func startAlipay(order order: CRUltimatePayAlipayOrder, paymentResultBlock: AlipayResultType?) {
         alipayResultBlock = paymentResultBlock
-        
+                
         let signedString = CreateRSADataSigner(privateKey).signString(order.description)
         let orderString = "\(order.description)&sign=\"\(signedString)\"&sign_type=\"RSA\""
         
