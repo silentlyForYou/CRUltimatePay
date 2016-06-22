@@ -281,7 +281,6 @@ extension CRUltimatePay {
      - parameter url:                获取Tn号码的url，通常为app服务器订单接口
      - parameter viewController:     调用该支付的view controller
      - parameter delegate:           委托
-     - parameter paymentResultBlock: 支付完成后的回调代码
      */
     func setUnipay(url url: String, viewController: UIViewController!, delegate: CRUltimatePayDelegate?) {
         self.tnServerUrl = url
@@ -291,6 +290,8 @@ extension CRUltimatePay {
     
     /**
      向服务器请求Tn后，开始发起银联支付请求
+     
+     - parameter paymentResultBlock: 支付完成后的回调代码
      */
     func startUnipay(paymentResultBlock: UnipayResultType?) {
         guard let url = NSURL(string: tnServerUrl) else {
@@ -379,7 +380,6 @@ extension CRUltimatePay {
      - parameter seller:             卖家支付宝唯一用户号
      - parameter privateKey:         私钥字符串
      - parameter delegate:           委托
-     - parameter paymentResultBlock: 支付完成后的回调代码
      */
     func setAlipay(partner partner: String, seller: String, privateKey: String, delegate: CRUltimatePayDelegate?) {
         self.partner = partner
@@ -393,6 +393,7 @@ extension CRUltimatePay {
      发起支付宝支付请求
      
      - parameter order: 支付订单数据
+     - parameter paymentResultBlock: 支付完成后的回调代码
      */
     func startAlipay(order order: CRUltimatePayAlipayOrder, paymentResultBlock: AlipayResultType?) {
         alipayResultBlock = paymentResultBlock
