@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         CRUltimatePay.sharedInstance().initialize(forProduction: false, scheme: "CRUnipayDemo")
-        
+        WXApi.registerApp("wxb4ba3c02aa476ea1")
+
         return true
     }
 
@@ -51,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         CRUltimatePay.sharedInstance().handlePaymentResult(url)
-        
+
         return true
     }
 }

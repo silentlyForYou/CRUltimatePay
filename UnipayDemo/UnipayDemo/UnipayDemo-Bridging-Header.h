@@ -6,3 +6,5 @@
 #import "DataSigner.h"
 
 #import <AlipaySDK/AlipaySDK.h>
+
+#import "WXApiManager.h"

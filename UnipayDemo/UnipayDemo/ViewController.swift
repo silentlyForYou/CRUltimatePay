@@ -94,6 +94,18 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
         }
     }
     
+    @IBAction func startWeiXinPay(sender: UIButton) {
+        let req = PayReq()
+        req.partnerId = "1305176001"
+        req.prepayId = "wx20160701091843d57d6a81430249267011"
+        req.nonceStr = "4976980e192b8988394ec4e2e3bb5679"
+        req.timeStamp = 1467335923
+        req.package = "Sign=WXPay"
+        req.sign = "26675BF331DBBE91D6B42D8B3E6F2237"
+        
+        WXApi.sendReq(req)
+    }
+    
     // MARK: Ultimate class delegate
     
     func unipayDidStartRequestTn() {

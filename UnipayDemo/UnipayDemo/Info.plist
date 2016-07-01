@@ -28,6 +28,16 @@
 				<string>CRUnipayDemo</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxb4ba3c02aa476ea1</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

@@ -267,6 +267,7 @@ class CRUltimatePay: NSObject {
         case alipayPaymentResultHost:
             handleAlipayPaymentResult(url)
         default:
+            handleWXPaymentResult(url)
             break
         }
     }
@@ -451,5 +452,9 @@ extension CRUltimatePay {
                 self.alipayResultBlock?(result, resultDic)
             }
         }
+    }
+    
+    private func handleWXPaymentResult(url: NSURL) {
+         WXApi.handleOpenURL(url, delegate: WXApiManager.sharedManager())
     }
 }
