@@ -57,9 +57,9 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
     
     @IBAction func startAlipay(sender: UIButton) {
         
-        let partner = "2088021000256123"
-        let seller = "yuanxinggo@163.com"
-        let privateKey = "MIICXAIBAAKBgQDVJwcPmaosVwaOFwbChQbSrBSjovWW5ueMxncRHEJ63JNIBSE1R621KVaW5RBwuXrkhOKg9xe3aKFFzI1gVjzGHo1F1RuQvXLkCmbOMK96nn4EBiCFn/WXMnzy9y+RRZ2l4xlllTKsQ86wruqrGazTnwB5r3yL+/aQdJcb2AyB+QIDAQABAoGAMb7VAAgN1iFNT1YCZt1i9UHh4zrB9EDZY1piKWUeAsx9tv4zfNrIqJIIOlklWBmBm9mDhquEJnLNyJtvlz8pGWqyzfdC5tRJS+6R7NVjM/su1iA7JyI101lbxw5xmL6dUAPZ1oHZfu1hkN0xTjZ74c7ZatZv7q/ea6RHvq1KynECQQDul6JijNcAgb5UY9AH2rxmtuFJVSal7GzEhTmi7kZGxogI/92ny3cQInhUqQpr1aoA270Hou7XA0nSyw4MvdrlAkEA5LQ75Dlc4BJmq+NNTk5AR0vtAkzyU9mSWX7fTYQBZaytMGrehAHQ2IupXkD31bDcvzaIvQbetVwPkhdBlFEVhQJAAI6YEXTUt6qV4CqPfMU09WRt6DbrrS19H4RUGx5FSbsC7Ep0oQSnlYEPGNuAK7pG+FOLAG6P8i6OyJAyyzLSRQJAIggPwW4nu9ABJyKzpitOtU0+/1Cj3oZJmLegUtCJxK9lNgcxBUOf6BkgIr5YIpwmvO1Ie5hCG4qPZpW/VGqcYQJBAOncJJx2GhCBEo+n75548aRWnFFj16Vmqs1gFVrkCAExHwfQAxne11eGyw/umErM5qzK+uxCPs+NQXu6X+mi68w="
+        let partner = ""
+        let seller = ""
+        let privateKey = ""
         
         var order = CRUltimatePayAlipayOrder()
         
