@@ -486,6 +486,19 @@ extension CRUltimatePay {
 
 // MARK: - 添加微信支持
 extension CRUltimatePay {
+    
+    /**
+     微信初始化用函数
+     
+     - parameter forProduction: 是否是发布环境
+     - parameter scheme:        App所使用的Sheme字符串
+     - parameter wxAppId:       微信对应的应用App Id
+     */
+    func initialize(forProduction forProduction: Bool, scheme: String, wxAppId: String) {
+        initialize(forProduction: forProduction, scheme: scheme)
+        
+        WXApi.registerApp(wxAppId)
+    }
 
     /**
      设置微信支付参数
@@ -501,13 +514,6 @@ extension CRUltimatePay {
      - parameter sign:      商家根据微信开放平台文档对数据做的签名
      - parameter delegate:  委托
      */
-    
-    func initialize(forProduction forProduction: Bool, scheme: String, wxAppId: String) {
-        initialize(forProduction: forProduction, scheme: scheme)
-        
-        WXApi.registerApp(wxAppId)
-    }
-    
     func setWXpay(partnerId partnerId: String, prepayId: String, nonceStr: String, timeStamp: UInt32, package: String, sign: String, delegate: CRUltimatePayDelegate?) {
         self.partnerId = partnerId
         self.prepayId = prepayId
@@ -519,6 +525,11 @@ extension CRUltimatePay {
         self.delegate = delegate
     }
     
+    /**
+     开始微信支付
+     
+     - parameter paymentResultBlock: 微信回调代码块
+     */
     func startWXpay(paymentResultBlock: WXpayResultType?) {
         wxpayResultBlock = paymentResultBlock
 
@@ -534,10 +545,20 @@ extension CRUltimatePay {
         delegate?.ultimatePayDidStartPay?()
     }
     
+    /**
+     微信支付回调处理模块
+     
+     - parameter url: 微信支付回调传入的URL
+     */
     private func handleWXPaymentResult(url: NSURL) {
         WXApi.handleOpenURL(url, delegate: self)
     }
 
+    /**
+     微信支付回调函数
+     
+     - parameter resp: 微信终端SDK所有响应类的基类
+     */
     func onResp(resp: BaseResp!) {
         if resp.isKindOfClass(PayResp) {
             var result = CRUltimatePayResult.fail
@@ -564,5 +585,3 @@ extension CRUltimatePay {
         }
     }
 }
-
-
