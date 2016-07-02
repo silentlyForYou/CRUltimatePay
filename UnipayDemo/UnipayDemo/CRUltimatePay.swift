@@ -124,6 +124,7 @@ struct CRUltimatePayAlipayOrder {
 
 @objc
 protocol CRUltimatePayDelegate: NSObjectProtocol {
+    
     // 开始发起支付请求
     optional func ultimatePayDidStartPay()
     // 支付成功，如果是银联支付返回sign以供校验或调试，其他返回空字符串
@@ -150,8 +151,8 @@ enum CRUltimatePayResult: Int {
     case signNull, verifyFail // 银联签名验证用
 }
 
-class CRUltimatePay: NSObject {
-    
+class CRUltimatePay: NSObject, WXApiDelegate {
+
     // App Scheme
     private var scheme: String = ""
     
@@ -194,6 +195,33 @@ class CRUltimatePay: NSObject {
     // 支付宝支付完成后的回调
     typealias AlipayResultType = (CRUltimatePayResult, [NSObject:AnyObject]) -> Void
     private var alipayResultBlock: AlipayResultType? = nil
+    
+    // 微信变量声明
+    // 微信支付回调host
+    private let wxPaymentResultHost = "pay"
+
+    /** 商家向财付通申请的商家id */
+    private var partnerId: String = ""
+    
+    /** 预支付订单 */
+    private var prepayId: String = ""
+
+    /** 随机串，防重发 */
+    private var nonceStr: String = ""
+
+    /** 时间戳，防重发 */
+    private var timeStamp: UInt32 = 0
+
+    /** 商家根据财付通文档填写的数据和签名 */
+    private var package: String = ""
+
+    /** 商家根据微信开放平台文档对数据做的签名 */
+    private var sign: String = ""
+
+    // 微信支付完成后的回调
+    typealias WXpayResultType = (CRUltimatePayResult, String) -> Void
+    private var wxpayResultBlock: WXpayResultType? = nil
+    
     
     struct Static {
         static var instance: CRUltimatePay! = nil
@@ -260,12 +288,13 @@ class CRUltimatePay: NSObject {
      */
     func handlePaymentResult(url: NSURL) {
         guard let host = url.host else { return }
-        
         switch host {
         case unipayPaymentResultHost:
             handleUnipayPaymentResult(url)
         case alipayPaymentResultHost:
             handleAlipayPaymentResult(url)
+        case wxPaymentResultHost:
+            handleWXPaymentResult(url)
         default:
             break
         }
@@ -452,4 +481,88 @@ extension CRUltimatePay {
             }
         }
     }
+    
 }
+
+// MARK: - 添加微信支持
+extension CRUltimatePay {
+
+    /**
+     设置微信支付参数
+     
+     - author: silently
+     - date: 16-07-01 13:07:29
+     
+     - parameter partnerId: 商家向财付通申请的商家id
+     - parameter prepayId:  预支付订单
+     - parameter nonceStr:  随机串，防重发
+     - parameter timeStamp: 时间戳，防重发
+     - parameter package:   商家根据财付通文档填写的数据和签名
+     - parameter sign:      商家根据微信开放平台文档对数据做的签名
+     - parameter delegate:  委托
+     */
+    
+    func initialize(forProduction forProduction: Bool, scheme: String, wxAppId: String) {
+        initialize(forProduction: forProduction, scheme: scheme)
+        
+        WXApi.registerApp(wxAppId)
+    }
+    
+    func setWXpay(partnerId partnerId: String, prepayId: String, nonceStr: String, timeStamp: UInt32, package: String, sign: String, delegate: CRUltimatePayDelegate?) {
+        self.partnerId = partnerId
+        self.prepayId = prepayId
+        self.nonceStr = nonceStr
+        self.timeStamp = timeStamp
+        self.package = package
+        self.sign = sign
+
+        self.delegate = delegate
+    }
+    
+    func startWXpay(paymentResultBlock: WXpayResultType?) {
+        wxpayResultBlock = paymentResultBlock
+
+        let req = PayReq()
+        req.partnerId = self.partnerId
+        req.prepayId = self.prepayId
+        req.nonceStr = self.nonceStr
+        req.timeStamp = self.timeStamp
+        req.package = self.package
+        req.sign = self.sign
+        
+        WXApi.sendReq(req)
+        delegate?.ultimatePayDidStartPay?()
+    }
+    
+    private func handleWXPaymentResult(url: NSURL) {
+        WXApi.handleOpenURL(url, delegate: self)
+    }
+
+    func onResp(resp: BaseResp!) {
+        if resp.isKindOfClass(PayResp) {
+            var result = CRUltimatePayResult.fail
+            
+            switch resp.errCode {
+            case 0:
+                result = .success
+                self.delegate?.ultimatePayDidPaySuccess?("")
+
+            case -2:
+                result = .cancel
+                self.delegate?.ultimatePayDidPayCancel?()
+
+            default:
+                result = .fail
+                self.delegate?.ultimatePayDidPayFailed?()
+                break
+            }
+            if let block = wxpayResultBlock {
+                dispatch_async(dispatch_get_main_queue()) {
+                    block(result, "")
+                }
+            }
+        }
+    }
+}
+
+

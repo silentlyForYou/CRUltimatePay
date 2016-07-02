@@ -39,6 +39,9 @@
 		9D2DC4FF1D192F5200879A5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2DC4FE1D192F5200879A5E /* Foundation.framework */; };
 		9D2DC5011D192F5A00879A5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2DC5001D192F5A00879A5E /* UIKit.framework */; };
 		9D37BE071D1A246400183120 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D37BE061D1A246400183120 /* AlipaySDK.bundle */; };
+		C9652CB41D2607360038DD11 /* RespForWeChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */; };
+		C9652CB61D2607360038DD11 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9652CB11D2607360038DD11 /* libWeChatSDK.a */; };
+		C9652CB81D2607B30038DD11 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9652CB71D2607B30038DD11 /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +166,11 @@
 		9D2DC4FE1D192F5200879A5E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9D2DC5001D192F5A00879A5E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D37BE061D1A246400183120 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = UnipayDemo/Frameworks/Alipay/AlipaySDK.bundle; sourceTree = "<group>"; };
+		C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RespForWeChatViewController.mm; sourceTree = "<group>"; };
+		C9652CB11D2607360038DD11 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		C9652CB21D2607360038DD11 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		C9652CB31D2607360038DD11 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		C9652CB71D2607B30038DD11 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		ECFF587B7337BB366FE68DC5 /* Pods-UnipayDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnipayDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnipayDemo/Pods-UnipayDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,7 +179,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9652CB81D2607B30038DD11 /* libsqlite3.0.tbd in Frameworks */,
 				9D2DC5011D192F5A00879A5E /* UIKit.framework in Frameworks */,
+				C9652CB61D2607360038DD11 /* libWeChatSDK.a in Frameworks */,
 				9D2DC4FF1D192F5200879A5E /* Foundation.framework in Frameworks */,
 				9D2DC4FD1D192F4100879A5E /* CoreTelephony.framework in Frameworks */,
 				9D2DC4FB1D192F3900879A5E /* CoreText.framework in Frameworks */,
@@ -205,6 +215,7 @@
 		91D0AB87153734D6819BDE9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9652CB71D2607B30038DD11 /* libsqlite3.0.tbd */,
 				9D37BE061D1A246400183120 /* AlipaySDK.bundle */,
 				9D2DC5001D192F5A00879A5E /* UIKit.framework */,
 				9D2DC4FE1D192F5200879A5E /* Foundation.framework */,
@@ -247,6 +258,7 @@
 		9D2DC45D1D18C5AE00879A5E /* UnipayDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C9652CAC1D2607360038DD11 /* WXPay */,
 				9D2DC48C1D192E8300879A5E /* Alipay */,
 				9D2DC45E1D18C5AE00879A5E /* AppDelegate.swift */,
 				9D2DC4601D18C5AE00879A5E /* ViewController.swift */,
@@ -377,6 +389,25 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		C9652CAC1D2607360038DD11 /* WXPay */ = {
+			isa = PBXGroup;
+			children = (
+				C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */,
+				C9652CB01D2607360038DD11 /* WXSdk */,
+			);
+			path = WXPay;
+			sourceTree = "<group>";
+		};
+		C9652CB01D2607360038DD11 /* WXSdk */ = {
+			isa = PBXGroup;
+			children = (
+				C9652CB11D2607360038DD11 /* libWeChatSDK.a */,
+				C9652CB21D2607360038DD11 /* WXApi.h */,
+				C9652CB31D2607360038DD11 /* WXApiObject.h */,
+			);
+			path = WXSdk;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -503,6 +534,7 @@
 				9D2DC4F51D192E8300879A5E /* RSADataVerifier.m in Sources */,
 				9D2DC4F31D192E8300879A5E /* openssl_wrapper.m in Sources */,
 				9D2DC4EE1D192E8300879A5E /* base64.m in Sources */,
+				C9652CB41D2607360038DD11 /* RespForWeChatViewController.mm in Sources */,
 				9D2DC4F21D192E8300879A5E /* NSDataEx.m in Sources */,
 				9D2DC4F11D192E8300879A5E /* MD5DataSigner.m in Sources */,
 				9D2DC4611D18C5AE00879A5E /* ViewController.swift in Sources */,
@@ -626,6 +658,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: cifeng fang (F5T6JB833L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: cifeng fang (F5T6JB833L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnipayDemo/Frameworks/Alipay",
@@ -642,9 +676,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnipayDemo/Frameworks/Alipay",
+					"$(PROJECT_DIR)/UnipayDemo/WXPay/WXSdk",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Demeijia.UnipayDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c7a9f425-c3d7-4964-9acf-09bd03d2a413";
 				SWIFT_OBJC_BRIDGING_HEADER = "UnipayDemo/UnipayDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -656,6 +692,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnipayDemo/Frameworks/Alipay",
@@ -672,9 +709,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnipayDemo/Frameworks/Alipay",
+					"$(PROJECT_DIR)/UnipayDemo/WXPay/WXSdk",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Demeijia.UnipayDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c7a9f425-c3d7-4964-9acf-09bd03d2a413";
 				SWIFT_OBJC_BRIDGING_HEADER = "UnipayDemo/UnipayDemo-Bridging-Header.h";
 			};
 			name = Release;
