@@ -7,4 +7,4 @@
 
 #import <AlipaySDK/AlipaySDK.h>
 
-#import "WXApiManager.h"
+#import "WXApi.h"

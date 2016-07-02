@@ -40,7 +40,6 @@
 		9D2DC5011D192F5A00879A5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2DC5001D192F5A00879A5E /* UIKit.framework */; };
 		9D37BE071D1A246400183120 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D37BE061D1A246400183120 /* AlipaySDK.bundle */; };
 		C9652CB41D2607360038DD11 /* RespForWeChatViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */; };
-		C9652CB51D2607360038DD11 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9652CAF1D2607360038DD11 /* WXApiManager.m */; };
 		C9652CB61D2607360038DD11 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9652CB11D2607360038DD11 /* libWeChatSDK.a */; };
 		C9652CB81D2607B30038DD11 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9652CB71D2607B30038DD11 /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
@@ -168,8 +167,6 @@
 		9D2DC5001D192F5A00879A5E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D37BE061D1A246400183120 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = UnipayDemo/Frameworks/Alipay/AlipaySDK.bundle; sourceTree = "<group>"; };
 		C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RespForWeChatViewController.mm; sourceTree = "<group>"; };
-		C9652CAE1D2607360038DD11 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
-		C9652CAF1D2607360038DD11 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		C9652CB11D2607360038DD11 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		C9652CB21D2607360038DD11 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C9652CB31D2607360038DD11 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -396,8 +393,6 @@
 			isa = PBXGroup;
 			children = (
 				C9652CAD1D2607360038DD11 /* RespForWeChatViewController.mm */,
-				C9652CAE1D2607360038DD11 /* WXApiManager.h */,
-				C9652CAF1D2607360038DD11 /* WXApiManager.m */,
 				C9652CB01D2607360038DD11 /* WXSdk */,
 			);
 			path = WXPay;
@@ -543,7 +538,6 @@
 				9D2DC4F21D192E8300879A5E /* NSDataEx.m in Sources */,
 				9D2DC4F11D192E8300879A5E /* MD5DataSigner.m in Sources */,
 				9D2DC4611D18C5AE00879A5E /* ViewController.swift in Sources */,
-				C9652CB51D2607360038DD11 /* WXApiManager.m in Sources */,
 				9D2DC4ED1D192E8300879A5E /* Order.m in Sources */,
 				9D2DC4F41D192E8300879A5E /* RSADataSigner.m in Sources */,
 				9D2DC45F1D18C5AE00879A5E /* AppDelegate.swift in Sources */,

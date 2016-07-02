@@ -78,8 +78,7 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
         
         CRUltimatePay.sharedInstance().setAlipay(partner: partner, seller: seller, privateKey: privateKey, delegate: self)
         CRUltimatePay.sharedInstance().startAlipay(order: order) { result, resultDict in
-            print(resultDict)
-            
+
             var text = ""
             
             switch result {
@@ -95,17 +94,57 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
     }
     
     @IBAction func startWeiXinPay(sender: UIButton) {
-        let req = PayReq()
-        req.partnerId = "1305176001"
-        req.prepayId = "wx20160701091843d57d6a81430249267011"
-        req.nonceStr = "4976980e192b8988394ec4e2e3bb5679"
-        req.timeStamp = 1467335923
-        req.package = "Sign=WXPay"
-        req.sign = "26675BF331DBBE91D6B42D8B3E6F2237"
         
-        WXApi.sendReq(req)
+        let urlString   = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios"
+        let request: NSURLRequest = NSURLRequest(URL: NSURL(string: urlString)!)
+        var response: NSURLResponse?
+        
+        do{
+            let data:NSData? = try NSURLConnection.sendSynchronousRequest(request,
+                                                                          returningResponse: &response)
+            let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            if str != nil {
+                let dic = try! NSJSONSerialization.JSONObjectWithData(data!,
+                                                                      options: NSJSONReadingOptions.MutableContainers)
+                let partnerId = dic["partnerid"] as? String ?? ""
+                let prepayId = dic["prepayid"] as? String ?? ""
+                let nonceStr = dic["noncestr"] as? String ?? ""
+                let timeStamp = UInt32(dic["timestamp"] as? Int ?? 0)
+                let package = dic["package"] as? String ?? ""
+                let sign = dic["sign"] as? String ?? ""
+
+                print("partid=\(partnerId)\nprepayid=\(prepayId)\nnoncestr=\(nonceStr)\ntimestamp=\(timeStamp)\npackage=\(package)\nsign=\(sign)");
+
+                CRUltimatePay.sharedInstance().setWXpay(partnerId: partnerId, prepayId: prepayId, nonceStr: nonceStr, timeStamp: timeStamp, package: package, sign: sign, delegate: self)
+                
+
+                CRUltimatePay.sharedInstance().startWXpay({ (result, string) in
+                    
+                    var text = ""
+                    
+                    switch result {
+                    case .success:  text = "支付成功"
+                    case .fail: text = "支付失败"
+                    case .cancel:   text = "支付取消"
+                    case .process:  text = "支付进行中"
+                    default: break
+                    }
+                    
+                    UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
+
+                })
+                
+            }
+            
+        }catch let error as NSError{
+            //打印错误消息
+            print(error.code)
+            print(error.description)
+        }
+        
     }
     
+
     // MARK: Ultimate class delegate
     
     func unipayDidStartRequestTn() {

@@ -45,15 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        CRUltimatePay.sharedInstance().handlePaymentResult(url)
         
+        CRUltimatePay.sharedInstance().handlePaymentResult(url)
         return true
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        CRUltimatePay.sharedInstance().handlePaymentResult(url)
 
+        CRUltimatePay.sharedInstance().handlePaymentResult(url)
         return true
     }
+    
 }
 
