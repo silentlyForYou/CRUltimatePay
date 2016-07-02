@@ -38,6 +38,7 @@
 		9D2DC4FF1D192F5200879A5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2DC4FE1D192F5200879A5E /* Foundation.framework */; };
 		9D2DC5011D192F5A00879A5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2DC5001D192F5A00879A5E /* UIKit.framework */; };
 		9D37BE071D1A246400183120 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D37BE061D1A246400183120 /* AlipaySDK.bundle */; };
+		9DA6761B1D27AA750095C013 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA6761A1D27AA750095C013 /* libsqlite3.tbd */; };
 		C9652CB61D2607360038DD11 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9652CB11D2607360038DD11 /* libWeChatSDK.a */; };
 /* End PBXBuildFile section */
 
@@ -162,10 +163,10 @@
 		9D2DC4FE1D192F5200879A5E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9D2DC5001D192F5A00879A5E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D37BE061D1A246400183120 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = UnipayDemo/Frameworks/Alipay/AlipaySDK.bundle; sourceTree = "<group>"; };
-		C9652CB11D2607360038DD11 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		C9652CB21D2607360038DD11 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		C9652CB31D2607360038DD11 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		C9652CB71D2607B30038DD11 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		9DA6761A1D27AA750095C013 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		C9652CB11D2607360038DD11 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = WXSdk/libWeChatSDK.a; sourceTree = "<group>"; };
+		C9652CB21D2607360038DD11 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = WXSdk/WXApi.h; sourceTree = "<group>"; };
+		C9652CB31D2607360038DD11 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = WXSdk/WXApiObject.h; sourceTree = "<group>"; };
 		ECFF587B7337BB366FE68DC5 /* Pods-UnipayDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnipayDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnipayDemo/Pods-UnipayDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
