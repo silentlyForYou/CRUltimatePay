@@ -16,8 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        CRUltimatePay.sharedInstance().initialize(forProduction: false, scheme: "CRUnipayDemo")
-        WXApi.registerApp("wxb4ba3c02aa476ea1")
+        CRUltimatePay.sharedInstance().initialize(forProduction: false, scheme: "CRUnipayDemo", wxAppId: "wxb4ba3c02aa476ea1")
 
         return true
     }

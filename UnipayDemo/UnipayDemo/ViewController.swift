@@ -99,13 +99,11 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
         let request: NSURLRequest = NSURLRequest(URL: NSURL(string: urlString)!)
         var response: NSURLResponse?
         
-        do{
-            let data:NSData? = try NSURLConnection.sendSynchronousRequest(request,
-                                                                          returningResponse: &response)
+        do {
+            let data:NSData? = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
             let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
             if str != nil {
-                let dic = try! NSJSONSerialization.JSONObjectWithData(data!,
-                                                                      options: NSJSONReadingOptions.MutableContainers)
+                let dic = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 let partnerId = dic["partnerid"] as? String ?? ""
                 let prepayId = dic["prepayid"] as? String ?? ""
                 let nonceStr = dic["noncestr"] as? String ?? ""
@@ -117,7 +115,6 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
 
                 CRUltimatePay.sharedInstance().setWXpay(partnerId: partnerId, prepayId: prepayId, nonceStr: nonceStr, timeStamp: timeStamp, package: package, sign: sign, delegate: self)
                 
-
                 CRUltimatePay.sharedInstance().startWXpay({ (result, string) in
                     
                     var text = ""
@@ -131,12 +128,10 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
                     }
                     
                     UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
-
-                })
-                
+                 })
             }
             
-        }catch let error as NSError{
+        } catch let error as NSError {
             //打印错误消息
             print(error.code)
             print(error.description)
@@ -147,35 +142,35 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
 
     // MARK: Ultimate class delegate
     
-    func unipayDidStartRequestTn() {
+    func ultimatePayDidStartRequestUnipayTn() {
         print("开始请求支付订单Tn号码")
     }
     
-    func unipayDidReceivedTnNumber(tn: String) {
+    func ultimatePayDidReceivedUnipayTnNumber(tn: String) {
         print("获得订单Tn号：\(tn)")
     }
     
-    func unipayDidStartPay() {
+    func ultimatePayDidStartPay() {
         print("开始发起支付请求")
     }
     
-    func unipayDidPaySuccess(sign: String) {
+    func ultimatePayDidPaySuccess(sign: String) {
         print("支付成功，密钥字符串：\(sign)")
     }
     
-    func unipayDidPayFailed() {
+    func ultimatePayDidPayFailed() {
         print("支付失败")
     }
     
-    func unipayDidPayCancel() {
+    func ultimatePayDidPayCancel() {
         print("支付取消")
     }
     
-    func unipayUnavailableUrl(url: String) {
+    func ultimatePayUnavailableUnipayUrl(url: String) {
         print("用于获取Tn号码的URL无效, URL: \(url)")
     }
     
-    func unipayReturnUnavailableTn(url: String) {
+    func ultimatePayReturnUnavailableUnipayTn(url: String) {
         print("返回无效的Tn号码，URL: \(url)")
     }
 }

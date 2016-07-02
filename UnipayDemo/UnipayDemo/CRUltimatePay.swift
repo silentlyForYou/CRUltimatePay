@@ -501,6 +501,13 @@ extension CRUltimatePay {
      - parameter sign:      商家根据微信开放平台文档对数据做的签名
      - parameter delegate:  委托
      */
+    
+    func initialize(forProduction forProduction: Bool, scheme: String, wxAppId: String) {
+        initialize(forProduction: forProduction, scheme: scheme)
+        
+        WXApi.registerApp(wxAppId)
+    }
+    
     func setWXpay(partnerId partnerId: String, prepayId: String, nonceStr: String, timeStamp: UInt32, package: String, sign: String, delegate: CRUltimatePayDelegate?) {
         self.partnerId = partnerId
         self.prepayId = prepayId
@@ -524,7 +531,7 @@ extension CRUltimatePay {
         req.sign = self.sign
         
         WXApi.sendReq(req)
-
+        delegate?.ultimatePayDidStartPay?()
     }
     
     private func handleWXPaymentResult(url: NSURL) {
@@ -538,13 +545,15 @@ extension CRUltimatePay {
             switch resp.errCode {
             case 0:
                 result = .success
+                self.delegate?.ultimatePayDidPaySuccess?("")
 
             case -2:
                 result = .cancel
+                self.delegate?.ultimatePayDidPayCancel?()
 
             default:
                 result = .fail
-
+                self.delegate?.ultimatePayDidPayFailed?()
                 break
             }
             if let block = wxpayResultBlock {
@@ -554,7 +563,6 @@ extension CRUltimatePay {
             }
         }
     }
-    
 }
 
 
