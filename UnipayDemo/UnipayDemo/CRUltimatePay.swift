@@ -533,26 +533,20 @@ extension CRUltimatePay {
 
     func onResp(resp: BaseResp!) {
         if resp.isKindOfClass(PayResp) {
-//            var message = ""
-            var result = CRUltimatePayResult.cancel
+            var result = CRUltimatePayResult.fail
             
             switch resp.errCode {
             case 0:
-//                message = "支付结果：成功！"
                 result = .success
 
             case -2:
-//                message = "支付结果：用户取消！"
                 result = .cancel
 
             default:
-//                message = "支付结果：支付失败！"
                 result = .fail
 
                 break
             }
-//            let alert = UIAlertView.init(title: "支付结果", message: message, delegate: nil, cancelButtonTitle: "ok")
-//            alert.show()
             if let block = wxpayResultBlock {
                 dispatch_async(dispatch_get_main_queue()) {
                     block(result, "")

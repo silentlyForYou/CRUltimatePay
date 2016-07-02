@@ -113,7 +113,7 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
                 let package = dic["package"] as? String ?? ""
                 let sign = dic["sign"] as? String ?? ""
 
-                print("partid=\(partnerId)\nprepayid=\(prepayId)\nnoncestr=\(nonceStr)\ntimestamp=\(timeStamp)\npackage=\(package)\nsign=\(sign)");
+//                print("partid=\(partnerId)\nprepayid=\(prepayId)\nnoncestr=\(nonceStr)\ntimestamp=\(timeStamp)\npackage=\(package)\nsign=\(sign)");
 
                 CRUltimatePay.sharedInstance().setWXpay(partnerId: partnerId, prepayId: prepayId, nonceStr: nonceStr, timeStamp: timeStamp, package: package, sign: sign, delegate: self)
                 
