@@ -100,9 +100,8 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
         var response: NSURLResponse?
         
         do {
-            let data:NSData? = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
-            let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            if str != nil {
+            let data: NSData? = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
+            if let _ = NSString(data: data!, encoding: NSUTF8StringEncoding) {
                 let dic = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 let partnerId = dic["partnerid"] as? String ?? ""
                 let prepayId = dic["prepayid"] as? String ?? ""
@@ -111,12 +110,9 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
                 let package = dic["package"] as? String ?? ""
                 let sign = dic["sign"] as? String ?? ""
 
-//                print("partid=\(partnerId)\nprepayid=\(prepayId)\nnoncestr=\(nonceStr)\ntimestamp=\(timeStamp)\npackage=\(package)\nsign=\(sign)");
-
                 CRUltimatePay.sharedInstance().setWXpay(partnerId: partnerId, prepayId: prepayId, nonceStr: nonceStr, timeStamp: timeStamp, package: package, sign: sign, delegate: self)
                 
-                CRUltimatePay.sharedInstance().startWXpay({ (result, string) in
-                    
+                CRUltimatePay.sharedInstance().startWXpay { result, string in
                     var text = ""
                     
                     switch result {
@@ -128,7 +124,7 @@ class ViewController: UIViewController, CRUltimatePayDelegate {
                     }
                     
                     UIAlertView(title: "提示", message: text, delegate: nil, cancelButtonTitle: "知道了").show()
-                 })
+                 }
             }
             
         } catch let error as NSError {
